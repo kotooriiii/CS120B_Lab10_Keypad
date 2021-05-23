@@ -85,40 +85,186 @@ unsigned char GetBit(unsigned char port, unsigned char number)
 //Parameter: None
 //Returns: A keypad button press else '\0'
 unsigned char GetKeypadKey() {
+	
+	unsigned char currentKeypadKey = '\0';
 
 	// Check keys in col 1
 	KEYPADPORT = SetBit(0xFF,COL1,0); // Set Px4 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if ( GetBit(~KEYPADPIN,ROW1) ) { return '1'; }
-	if ( GetBit(~KEYPADPIN,ROW2) ) { return '4'; }
-	if ( GetBit(~KEYPADPIN,ROW3) ) { return '7'; }
-	if ( GetBit(~KEYPADPIN,ROW4) ) { return '*'; }
+	if ( GetBit(~KEYPADPIN,ROW1) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '1';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+	if ( GetBit(~KEYPADPIN,ROW2) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '4';
+		}
+		else
+		{
+			return '\0';
+		}	
+	}
+	if ( GetBit(~KEYPADPIN,ROW3) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '7';
+		}
+		else
+		{
+			return '\0';
+		}	
+	}
+	if ( GetBit(~KEYPADPIN,ROW4) ) { 	
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '*';
+		}
+		else
+		{
+			return '\0';
+		} 
+	}
 
 	// Check keys in col 2
 	KEYPADPORT = SetBit(0xFF,COL2,0); // Set Px5 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if ( GetBit(~KEYPADPIN,ROW1) ) { return '2'; }
-	if ( GetBit(~KEYPADPIN,ROW2) ) { return '5'; }
-	if ( GetBit(~KEYPADPIN,ROW3) ) { return '8'; }
-	if ( GetBit(~KEYPADPIN,ROW4) ) { return '0'; }
+	if ( GetBit(~KEYPADPIN,ROW1) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '2';
+		}
+		else
+		{
+			return '\0';
+		}	
+	}
+	if ( GetBit(~KEYPADPIN,ROW2) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '5';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+	if ( GetBit(~KEYPADPIN,ROW3) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '8';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+	if ( GetBit(~KEYPADPIN,ROW4) ) {
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '0';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
 
 	// Check keys in col 3
 	KEYPADPORT = SetBit(0xFF,COL3,0); // Set Px6 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if ( GetBit(~KEYPADPIN,ROW1) ) { return '3'; }
-	if ( GetBit(~KEYPADPIN,ROW2) ) { return '6'; }
-	if ( GetBit(~KEYPADPIN,ROW3) ) { return '9'; }
-	if ( GetBit(~KEYPADPIN,ROW4) ) { return '#'; }
+	if ( GetBit(~KEYPADPIN,ROW1) ) {
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '3';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+	if ( GetBit(~KEYPADPIN,ROW2) ) {
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '6';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+	if ( GetBit(~KEYPADPIN,ROW3) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '9';
+		}
+		else
+		{
+			return '\0';
+		}	
+	}
+	if ( GetBit(~KEYPADPIN,ROW4) ) {
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = '#';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
 
 	// Check keys in col 4
 	KEYPADPORT = SetBit(0xFF,COL4,0); // Set Px7 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if (GetBit(~KEYPADPIN,ROW1) ) { return 'A'; }
-	if (GetBit(~KEYPADPIN,ROW2) ) { return 'B'; }
-	if (GetBit(~KEYPADPIN,ROW3) ) { return 'C'; }
-	if (GetBit(~KEYPADPIN,ROW4) ) { return 'D'; }
+	if (GetBit(~KEYPADPIN,ROW1) ) {
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = 'A';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+	if (GetBit(~KEYPADPIN,ROW2) ) {
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = 'B';
+		}
+		else
+		{
+			return '\0';
+		}		
+	}
+	if (GetBit(~KEYPADPIN,ROW3) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = 'C';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
+	if (GetBit(~KEYPADPIN,ROW4) ) { 
+		if(currentKeypadKey  == '\0')
+		{
+			currentKeypadKey = 'D';
+		}
+		else
+		{
+			return '\0';
+		}
+	}
 	
-	return '\0';
+	return currentKeypadKey;
 }
 
 /* 
@@ -184,6 +330,7 @@ void TimerSet(unsigned long M)
 */
 
 	unsigned char currentKey = '\0';
+	unsigned char currPORTB = 0x00;
 /*
 	End Shared variables
 */
@@ -205,7 +352,6 @@ int keypadFeedbackSMTick(int state);
 int main(void) 
 {
 	
-	//Inputs
 	DDRB = 0xFF; PORTB = 0x00;
 	DDRC = 0xF0; PORTC = 0x0F;
 
@@ -311,13 +457,15 @@ int keypadFeedbackSMTick(int state)
 		case KF_FEED:
 		if(currentKey == '\0')
 		{
-			PORTB = SetBit(~PINB, 7, 0);
+			currPORTB = SetBit(currPORTB, 7, 0);
 		}
 		else
 		{
-			PORTB = SetBit(~PINB, 7, 1);
+			currPORTB = SetBit(currPORTB, 7, 1);
 
 		}
+		
+		PORTB = currPORTB;
 		break;
 		
 		default:
@@ -329,7 +477,6 @@ int keypadFeedbackSMTick(int state)
 
 
 	
-
 
 
 
